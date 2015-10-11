@@ -4,4 +4,4 @@ jdk:
   - oraclejdk7
 
 after_success:
-  - coveralls
+  - mvn cobertura:cobertura coveralls:report
