@@ -26,6 +26,10 @@
     </description>
     <url>https://github.com/sterodium/rmi</url>
 
+    <modules>
+        <module>hub-extensions</module>
+    </modules>
+
     <organization>
         <name>Sterodium</name>
         <url>http://sterodium.io</url>
