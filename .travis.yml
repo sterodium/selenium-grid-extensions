@@ -2,3 +2,6 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
+
+after_success:
+  - mvn cobertura:cobertura coveralls:report
