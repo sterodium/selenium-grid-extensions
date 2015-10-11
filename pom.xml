@@ -28,6 +28,7 @@
 
     <modules>
         <module>hub-extensions</module>
+        <module>node-extensions</module>
     </modules>
 
     <organization>
