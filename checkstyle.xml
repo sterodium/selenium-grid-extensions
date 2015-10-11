@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!--
+For details and full list of available checks:
+http://checkstyle.sourceforge.net/availablechecks.html
+-->
+<module name="Checker">
+    <module name="FileTabCharacter"/>
+    <module name="NewlineAtEndOfFile"/>
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <module name="TreeWalker">
+        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+
+        <module name="AnnotationLocation"/>
+        <module name="ArrayTrailingComma"/>
+        <module name="ArrayTypeStyle"/>
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="allowNonPrintableEscapes" value="true"/>
+        </module>
+        <module name="AvoidNestedBlocks"/>
+        <module name="AvoidStarImport">
+            <property name="allowClassImports" value="false"/>
+            <property name="allowStaticMemberImports" value="true"/>
+        </module>
+        <module name="ClassTypeParameterName">
+            <property name="format" value="^[A-Z]{1,2}$"/>
+        </module>
+        <module name="ConstantName"/>
+        <module name="CovariantEquals"/>
+        <module name="DefaultComesLast"/>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="ignored"/>
+        </module>
+        <module name="EmptyStatement"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="EqualsHashCode"/>
+        <module name="FallThrough">
+            <property name="reliefPattern" value="falls through"/>
+        </module>
+        <module name="FinalClass"/>
+        <module name="GenericWhitespace"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="IllegalImport">
+            <property name="illegalPkgs" value="sun"/>
+        </module>
+        <module name="IllegalInstantiation">
+            <property name="classes" value="java.lang.Boolean"/>
+        </module>
+        <module name="IllegalThrows"/>
+        <module name="IllegalType">
+            <!-- Use @NotNull instead or Java 8 -->
+            <property name="illegalClassNames" value="com.google.common.base.Optional"/>
+        </module>
+        <module name="Indentation">
+            <property name="throwsIndent" value="8"/>
+        </module>
+        <module name="InnerAssignment"/>
+        <module name="InterfaceIsType"/>
+        <module name="LeftCurly"/>
+        <module name="LineLength">
+            <property name="max" value="140"/>
+        </module>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="MethodParamPad"/>
+        <module name="MethodTypeParameterName">
+            <property name="format" value="^[A-Z]{1,2}$"/>
+        </module>
+        <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="ModifierOrder"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="MutableException">
+            <property name="format" value="^.*Exception$"/>
+        </module>
+        <module name="NeedBraces">
+            <property name="tokens" value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_WHILE"/>
+        </module>
+        <module name="NestedForDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedIfDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NoClone"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OneStatementPerLine"/>
+        <module name="OneTopLevelClass"/>
+        <module name="OuterTypeFilename"/>
+        <module name="PackageDeclaration"/>
+        <module name="PackageName"/>
+        <module name="ParameterAssignment"/>
+        <module name="ParameterName"/>
+        <module name="ParameterNumber">
+            <property name="max" value="6"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+        <module name="ParenPad"/>
+        <module name="RedundantImport"/>
+        <module name="RedundantModifier"/>
+        <module name="RightCurly"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StaticVariableName"/>
+        <module name="StringLiteralEquality"/>
+        <module name="TypeName"/>
+        <module name="TypecastParenPad"/>
+        <module name="UnusedImports"/>
+        <module name="UpperEll"/>
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true"/>
+        </module>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+        </module>
+    </module>
+</module>
