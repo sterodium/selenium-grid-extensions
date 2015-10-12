@@ -3,33 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
-
-    <properties>
-        <compiler.version>1.7</compiler.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <groupId>io.sterodium</groupId>
     <artifactId>selenium-grid-extensions</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
-
     <name>Selenium Grid Extensions</name>
-    <description>
-        Set of extensions to get more out of Selenium Grid
-    </description>
-    <url>https://github.com/sterodium/rmi</url>
+    <description>Set of extensions for Selenium Grid</description>
+    <inceptionYear>2015</inceptionYear>
 
-    <modules>
-        <module>hub-extensions</module>
-        <module>node-extensions</module>
-    </modules>
+    <url>https://github.com/sterodium/selenium-grid-extensions</url>
 
     <organization>
         <name>Sterodium</name>
@@ -44,23 +27,15 @@
         </license>
     </licenses>
 
-    <scm>
-        <url>https://github.com/sterodium/rmi</url>
-        <connection>scm:git@github.com:sterodium/rmi.git</connection>
-        <developerConnection>scm:git:git@github.com:sterodium/rmi.git</developerConnection>
-    </scm>
-
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/sterodium/rmi/issues</url>
+        <url>https://github.com/sterodium/selenium-grid-extensions/issues</url>
     </issueManagement>
 
-    <!--
     <ciManagement>
-        <system>Jenkins</system>
-        <url>http://ci.sterodium.io/</url>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/sterodium/selenium-grid-extensions</url>
     </ciManagement>
-    -->
 
     <developers>
         <developer>
@@ -84,28 +59,68 @@
         </mailingList>
     </mailingLists>
 
+    <scm>
+        <url>git@github.com:sterodium/selenium-grid-extensions.git</url>
+        <connection>scm:git@github.com:sterodium/selenium-grid-extensions.git</connection>
+        <developerConnection>scm:git:git@github.com:sterodium/selenium-grid-extensions.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <modules>
+        <module>hub-extensions</module>
+        <module>node-extensions</module>
+    </modules>
+
+    <properties>
+
+        <!--project-->
+        <compiler.version>1.7</compiler.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <coveralls.repo.token>7FNz5rhgKwbNe1f4p9Mgoc4fUXzMCQUu5</coveralls.repo.token>
+
+        <!--maven plugins-->
+        <plugin.compiler.version>3.3</plugin.compiler.version>
+        <plugin.resources.version>2.7</plugin.resources.version>
+        <plugin.cobertura.version>2.7</plugin.cobertura.version>
+        <plugin.jar.version>2.6</plugin.jar.version>
+        <plugin.nexus.staging.version>1.6.6</plugin.nexus.staging.version>
+        <plugin.source.version>2.4</plugin.source.version>
+        <plugin.javadoc.version>2.10.3</plugin.javadoc.version>
+        <plugin.checkstyle.version>2.16</plugin.checkstyle.version>
+        <plugin.coveralls.version>3.2.0</plugin.coveralls.version>
+        <plugin.gpg.version>1.6</plugin.gpg.version>
+        <plugin.sniffer.version>1.14</plugin.sniffer.version>
+        <plugin.release.version>2.5.2</plugin.release.version>
+    </properties>
+
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>${plugin.resources.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>${plugin.cobertura.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>${plugin.jar.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -114,7 +129,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>${plugin.compiler.version}</version>
                 <configuration>
                     <source>${compiler.version}</source>
                     <target>${compiler.version}</target>
@@ -122,30 +137,8 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <author>false</author>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.16</version>
+                <version>${plugin.checkstyle.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
@@ -169,26 +162,33 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- cobertura -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${plugin.release.version}</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
                 <configuration>
                     <format>xml</format>
                     <maxmem>256m</maxmem>
-                    <!-- aggregated reports for multi-module projects -->
                     <aggregate>true</aggregate>
                 </configuration>
             </plugin>
-
-            <!-- coveralls -->
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${plugin.coveralls.version}</version>
                 <configuration>
-                    <repoToken>7FNz5rhgKwbNe1f4p9Mgoc4fUXzMCQUu5</repoToken>
+                    <repoToken>${coveralls.repo.token}</repoToken>
                 </configuration>
             </plugin>
         </plugins>
@@ -196,6 +196,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--Extensions-->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-server</artifactId>
@@ -206,6 +207,8 @@
                 <artifactId>httpclient</artifactId>
                 <version>4.5</version>
             </dependency>
+
+            <!--Logging-->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -217,6 +220,7 @@
                 <version>1.7.12</version>
             </dependency>
 
+            <!--Test-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -237,6 +241,74 @@
 
     <profiles>
         <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${plugin.source.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${plugin.javadoc.version}</version>
+                        <configuration>
+                            <author>false</author>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${plugin.nexus.staging.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${plugin.gpg.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>signature-check</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -246,7 +318,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>animal-sniffer-maven-plugin</artifactId>
-                        <version>1.14</version>
+                        <version>${plugin.sniffer.version}</version>
                         <executions>
                             <execution>
                                 <id>signature-check</id>

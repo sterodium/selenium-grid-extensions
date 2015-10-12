@@ -18,7 +18,6 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 24/09/2015
- *         <p/>
  */
 public abstract class BaseServletTest {
 

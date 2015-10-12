@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 21/09/2015
- *         <p/>
  */
 public class SeleniumSessions {
 

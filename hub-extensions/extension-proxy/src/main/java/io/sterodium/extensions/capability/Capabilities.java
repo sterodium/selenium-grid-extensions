@@ -3,7 +3,6 @@ package io.sterodium.extensions.capability;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 20/09/2015
- *         <p/>
  */
 public final class Capabilities {
 
