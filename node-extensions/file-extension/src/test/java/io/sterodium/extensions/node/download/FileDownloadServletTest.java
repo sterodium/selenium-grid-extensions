@@ -30,7 +30,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 30/09/2015
- *         <p/>
  */
 public class FileDownloadServletTest extends BaseServletTest {
 

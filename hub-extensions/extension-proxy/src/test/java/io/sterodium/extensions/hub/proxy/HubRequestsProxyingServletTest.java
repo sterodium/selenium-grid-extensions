@@ -49,7 +49,6 @@ import static org.mockito.Mockito.when;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 24/09/2015
- *         <p/>
  */
 @RunWith(MockitoJUnitRunner.class)
 public class HubRequestsProxyingServletTest {

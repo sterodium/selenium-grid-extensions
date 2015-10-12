@@ -8,11 +8,10 @@ import java.util.logging.Logger;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 20/09/2015
- *         <p/>
+ *
  *         Default capability matcher considers only 4 capabilities:
  *         PLATFORM, BROWSER_NAME, VERSION, applicationName.
  *         There are capabilities like FirefoxDriver.PROFILE which are used to pass profile settings to the node, these need to be ignored.
- *         <p/>
  *         Custom capability matcher makes extension capability checks in addition to the basic ones.
  */
 @SuppressWarnings("unused")

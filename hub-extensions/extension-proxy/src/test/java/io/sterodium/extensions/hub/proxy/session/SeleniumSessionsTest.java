@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 22/09/2015
- *         <p/>
  */
 public class SeleniumSessionsTest {
 

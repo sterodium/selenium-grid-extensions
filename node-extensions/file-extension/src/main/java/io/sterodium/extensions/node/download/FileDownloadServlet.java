@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 22/09/2015
- *         <p/>
+ *
  *         Allows to download file by providing it's path in GET request.
  */
 public class FileDownloadServlet extends HttpServlet {

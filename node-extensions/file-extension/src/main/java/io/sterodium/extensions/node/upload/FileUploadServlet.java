@@ -23,7 +23,7 @@ import java.util.zip.ZipFile;
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
  *         Date: 22/09/2015
- *         <p/>
+ *
  *         Allows to upload zip archive with resources.
  *         Zip contents will be stored in temporary folder,
  *         absolute path will be returned in response body.
