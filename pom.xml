@@ -217,11 +217,6 @@
 
             <!--Extension Clients-->
             <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5</version>
-            </dependency>
-            <dependency>
                 <groupId>org.zeroturnaround</groupId>
                 <artifactId>zt-zip</artifactId>
                 <version>1.8</version>

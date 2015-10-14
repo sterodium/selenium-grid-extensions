@@ -20,7 +20,7 @@ import static org.apache.commons.io.filefilter.TrueFileFilter.TRUE;
  * @author Mihails Volkovs mihails.volkovs@gmail.com
  *         Date: 20/09/2015
  */
-class TargetFactory {
+public class TargetFactory {
 
     private File folderToScan = new File(".");
 
