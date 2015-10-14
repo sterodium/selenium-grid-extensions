@@ -30,6 +30,20 @@ public class SeleniumSessions {
         throw new IllegalArgumentException("Invalid sessionId. No active session is present for id:" + sessionId);
     }
 
+    public void refreshTimeout(String sessionId) {
+        for (TestSession activeSession : registry.getActiveSessions()) {
+            if (sessionId.equals(activeSession.getExternalKey().getKey())) {
+                refreshTimeout(activeSession);
+            }
+        }
+    }
+
+    private void refreshTimeout(TestSession activeSession) {
+        if (activeSession.getInactivityTime() != 0) {
+            activeSession.setIgnoreTimeout(false);
+        }
+    }
+
     public static String getSessionIdFromPath(String pathInfo) {
         Matcher matcher = SESSION_ID_PATTERN.matcher(pathInfo);
         if (matcher.matches()) {
