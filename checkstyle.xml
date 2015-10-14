@@ -105,7 +105,6 @@ http://checkstyle.sourceforge.net/availablechecks.html
         <module name="OuterTypeFilename"/>
         <module name="PackageDeclaration"/>
         <module name="PackageName"/>
-        <module name="ParameterAssignment"/>
         <module name="ParameterName"/>
         <module name="ParameterNumber">
             <property name="max" value="6"/>
