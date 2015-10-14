@@ -17,5 +17,6 @@
     <modules>
         <module>file-extension-client</module>
         <module>test-resources</module>
+        <module>sikuli-extension-client</module>
     </modules>
 </project>
