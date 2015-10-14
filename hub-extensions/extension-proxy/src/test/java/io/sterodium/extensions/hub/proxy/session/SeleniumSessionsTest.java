@@ -67,15 +67,16 @@ public class SeleniumSessionsTest {
 
     @Test
     public void shouldRefreshTimeout() throws InterruptedException {
+        Thread.sleep(100);
         long inactivityTime = activeSession.getInactivityTime();
-
         Thread.sleep(100);
 
         seleniumSessions.refreshTimeout("sessionId");
 
         long inactivityTimeAfterRefresh = activeSession.getInactivityTime();
 
-        assertTrue("Inactivity time should be less after refresh", inactivityTime > inactivityTimeAfterRefresh);
+        assertTrue(String.format("Inactivity time should be less after refresh, but have %d > %d", inactivityTime, inactivityTimeAfterRefresh),
+                inactivityTime > inactivityTimeAfterRefresh);
     }
 
     @Test

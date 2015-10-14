@@ -9,6 +9,7 @@
 
     <artifactId>hub-extensions</artifactId>
     <packaging>pom</packaging>
+    <name>Hub Extensions</name>
 
     <modules>
         <module>extension-proxy</module>
