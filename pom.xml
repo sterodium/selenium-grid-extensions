@@ -80,6 +80,7 @@
     <modules>
         <module>hub-extensions</module>
         <module>node-extensions</module>
+        <module>extension-clients</module>
     </modules>
 
     <properties>
@@ -212,6 +213,23 @@
                 <groupId>io.sterodium</groupId>
                 <artifactId>sterodium-rmi</artifactId>
                 <version>0.1</version>
+            </dependency>
+
+            <!--Extension Clients-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>zt-zip</artifactId>
+                <version>1.8</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>18.0</version>
             </dependency>
 
             <!--Sikuli & Open CV-->
