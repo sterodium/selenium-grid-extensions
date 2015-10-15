@@ -16,6 +16,7 @@
     <modules>
         <module>file-extension</module>
         <module>sikuli-extension</module>
+        <module>all-node-extensions</module>
     </modules>
 
 </project>
