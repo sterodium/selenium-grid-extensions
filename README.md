@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/sterodium/selenium-grid-extensions/badge.svg?branch=master&service=github)](https://coveralls.io/github/sterodium/selenium-grid-extensions?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.sterodium/selenium-grid-extensions/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.sterodium/selenium-grid-extensions)
 [![][license img]][license]
+[![Gitter Chat](http://img.shields.io/badge/chat-online-brightgreen.svg)](https://gitter.im/sterodium/selenium-grid-extensions)
 
 
 Set of Selenium Grid extensions for a better UI tests.
@@ -16,6 +17,7 @@ See the [Wiki](https://github.com/sterodium/selenium-grid-extensions/wiki) for d
 
 - Twitter: [@Sterodium](http://twitter.com/Sterodium)
 - [GitHub Issues](https://github.com/sterodium/selenium-grid-extensions/issues)
+- [Gitter Chat](https://gitter.im/sterodium/selenium-grid-extensions)
 
 ## What does this project do?
 
@@ -157,5 +159,5 @@ $ cd selenium-grid-extensions/
 $ mvn install
 ```
 
-[license]:LICENSE-2.0.txt
+[license]:LICENSE
 [license img]:https://img.shields.io/badge/License-Apache%202-blue.svg
