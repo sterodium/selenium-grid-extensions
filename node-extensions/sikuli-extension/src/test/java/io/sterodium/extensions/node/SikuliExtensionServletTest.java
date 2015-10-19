@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -61,8 +62,25 @@ public class SikuliExtensionServletTest {
     }
 
     @Test
+    public void shouldReturnErrorInformation() throws IOException {
+        String invocationJsonString = failingInvocationJsonString();
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        HttpPost request = new HttpPost(basePath + "/" + URLEncoder.encode("mouse", "UTF-8"));
+        request.setEntity(new StringEntity(invocationJsonString));
+
+        HttpResponse httpResponse = httpClient.execute(serverHost, request);
+
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+
+        assertThat(statusCode, is(HttpStatus.SC_BAD_REQUEST));
+        assertThat(EntityUtils.toString(httpResponse.getEntity()), containsString("notExistingMethod not found"));
+    }
+
+    @Test
     public void shouldFailIfObjectIdNotPresent() throws IOException {
-        String invocationJsonString = invocationJsonString();
+        String invocationJsonString = failingInvocationJsonString();
 
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -81,6 +99,14 @@ public class SikuliExtensionServletTest {
         String[] argClasses = {String.class.getName()};
         String[] arguments = {"target"};
         MethodInvocationDto invocation = new MethodInvocationDto("setImagePrefix", argClasses, arguments);
+
+        return new Gson().toJson(invocation);
+    }
+
+    private String failingInvocationJsonString() {
+        String[] argClasses = {String.class.getName()};
+        String[] arguments = {"value"};
+        MethodInvocationDto invocation = new MethodInvocationDto("notExistingMethod", argClasses, arguments);
 
         return new Gson().toJson(invocation);
     }
