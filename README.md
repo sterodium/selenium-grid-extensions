@@ -93,9 +93,11 @@ java -cp "selenium-server-standalone-2.48.2.jar:extension-proxy-x.y.z.jar" org.o
       "extension.sikuliCapability": true
     }
   ],
+"configuration": {
 ...
 "servlets": "io.sterodium.extensions.node.SikuliExtensionServlet,io.sterodium.extensions.node.upload.FileUploadServlet,io.sterodium.extensions.node.download.FileDownloadServlet"
 ...
+}
 ```
 Launch node with 
 ```
