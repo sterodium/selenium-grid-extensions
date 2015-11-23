@@ -80,8 +80,9 @@
         <module>hub-extensions</module>
         <module>node-extensions</module>
         <module>extension-clients</module>
+        <module>grid-starter</module>
+        <module>selenium-log4j</module>
     </modules>
-
     <properties>
 
         <!--project-->
