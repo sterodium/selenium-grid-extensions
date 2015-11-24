@@ -76,13 +76,6 @@
         </repository>
     </distributionManagement>
 
-    <modules>
-        <module>hub-extensions</module>
-        <module>node-extensions</module>
-        <module>extension-clients</module>
-        <module>grid-starter</module>
-        <module>selenium-log4j</module>
-    </modules>
     <properties>
 
         <!--project-->
@@ -321,6 +314,19 @@
 
     <profiles>
         <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>hub-extensions</module>
+                <module>node-extensions</module>
+                <module>extension-clients</module>
+                <module>grid-starter</module>
+                <module>selenium-log4j</module>
+            </modules>
+        </profile>
+        <profile>
             <id>release</id>
             <activation>
                 <property>
@@ -328,6 +334,13 @@
                     <value>true</value>
                 </property>
             </activation>
+            <modules>
+                <module>hub-extensions</module>
+                <module>node-extensions</module>
+                <module>extension-clients</module>
+                <module>grid-starter</module>
+                <module>selenium-log4j</module>
+            </modules>
             <build>
                 <plugins>
                     <plugin>
@@ -418,6 +431,12 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>sample</id>
+            <modules>
+                <module>sample</module>
+            </modules>
         </profile>
     </profiles>
 </project>

@@ -1,0 +1,17 @@
+{
+  "host": localhost,
+  "port": 4444,
+  "newSessionWaitTimeout": -1,
+  "servlets": [
+    "io.sterodium.extensions.hub.proxy.HubRequestsProxyingServlet"
+  ],
+  "prioritizer": null,
+  "capabilityMatcher": "io.sterodium.extensions.capability.CustomCapabilityMatcher",
+  "throwOnCapabilityNotPresent": true,
+  "nodePolling": 5000,
+  "cleanUpCycle": 5000,
+  "timeout": 300000,
+  "browserTimeout": 0,
+  "maxSession": 5,
+  "jettyMaxThreads": -1
+}
