@@ -74,7 +74,7 @@ public class SikuliExtensionServletTest {
 
         int statusCode = httpResponse.getStatusLine().getStatusCode();
 
-        assertThat(statusCode, is(HttpStatus.SC_BAD_REQUEST));
+        assertThat(statusCode, is(HttpStatus.SC_OK));
         assertThat(EntityUtils.toString(httpResponse.getEntity()), containsString("notExistingMethod not found"));
     }
 

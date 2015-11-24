@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import io.sterodium.extensions.node.rmi.SikuliApplication;
 import io.sterodium.rmi.protocol.MethodInvocationDto;
 import io.sterodium.rmi.protocol.MethodInvocationResultDto;
-import io.sterodium.rmi.protocol.server.RemoteMethodInvocationException;
-import org.apache.http.HttpStatus;
 import org.openqa.grid.internal.Registry;
 import org.openqa.grid.web.servlet.RegistryBasedServlet;
 
@@ -41,16 +39,9 @@ public class SikuliExtensionServlet extends RegistryBasedServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Can't find object ID in URL string");
             return;
         }
-
         MethodInvocationDto method = GSON.fromJson(req.getReader(), MethodInvocationDto.class);
-
-        try {
-            MethodInvocationResultDto result = SIKULI_APPLICATION.invoke(objectId, method);
-            resp.getWriter().write(GSON.toJson(result));
-        } catch (RemoteMethodInvocationException e) {
-            resp.setStatus(HttpStatus.SC_BAD_REQUEST);
-            resp.getWriter().write(e.getMessage());
-        }
+        MethodInvocationResultDto result = SIKULI_APPLICATION.invoke(objectId, method);
+        resp.getWriter().write(GSON.toJson(result));
     }
 
     private String getObjectId(HttpServletRequest req) {
