@@ -20,9 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.grid.internal.Registry;
 import org.openqa.grid.internal.TestSession;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletOutputStream;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
@@ -72,6 +70,16 @@ public class HubRequestsProxyingServletPathsTest {
 
     private final ServletOutputStream outputStream = new ServletOutputStream() {
         @Override
+        public boolean isReady() {
+            return true;
+        }
+
+        @Override
+        public void setWriteListener(WriteListener writeListener) {
+            throw new RuntimeException("Not implemented");
+        }
+
+        @Override
         public void write(int b) throws IOException {
             httpServletResponseOutputStream.write(b);
         }
@@ -79,6 +87,26 @@ public class HubRequestsProxyingServletPathsTest {
 
     private InputStream httpServletRequestInputStream;
     private final ServletInputStream inputStream = new ServletInputStream() {
+        @Override
+        public boolean isFinished() {
+            try {
+                return 0 == httpServletRequestInputStream.available();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+
+        @Override
+        public boolean isReady() {
+            return true;
+        }
+
+        @Override
+        public void setReadListener(ReadListener readListener) {
+            throw new RuntimeException("Not implemented");
+        }
+
         @Override
         public int read() throws IOException {
             return httpServletRequestInputStream.read();

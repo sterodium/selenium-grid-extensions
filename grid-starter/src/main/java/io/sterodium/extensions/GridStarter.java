@@ -1,7 +1,7 @@
 package io.sterodium.extensions;
 
 import io.sterodium.extensions.spi.GridConfigurator;
-import org.openqa.grid.selenium.GridLauncher;
+import org.openqa.grid.selenium.GridLauncherV3;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.util.ServiceLoader;
@@ -43,7 +43,7 @@ public final class GridStarter {
     }
 
     private void start() throws Exception {
-        GridLauncher.main(args);
+        GridLauncherV3.main(args);
     }
 
 }

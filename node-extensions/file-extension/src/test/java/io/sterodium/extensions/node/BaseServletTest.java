@@ -1,14 +1,15 @@
 package io.sterodium.extensions.node;
 
 import org.apache.commons.io.IOUtils;
-import org.seleniumhq.jetty7.server.Server;
-import org.seleniumhq.jetty7.servlet.ServletContextHandler;
-import org.seleniumhq.jetty7.servlet.ServletHolder;
+import org.seleniumhq.jetty9.server.Server;
+import org.seleniumhq.jetty9.servlet.ServletContextHandler;
+import org.seleniumhq.jetty9.servlet.ServletHolder;
 
 import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -42,7 +43,7 @@ public abstract class BaseServletTest {
                 final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipArchive))) {
             ZipEntry e = new ZipEntry(ZIP_FILE_NAME);
             out.putNextEntry(e);
-            IOUtils.write("test data", out);
+            IOUtils.write("test data", out, StandardCharsets.UTF_8);
             out.closeEntry();
         }
         return zipArchive;

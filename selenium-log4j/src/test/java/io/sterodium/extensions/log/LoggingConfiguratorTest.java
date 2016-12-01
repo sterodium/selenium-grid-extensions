@@ -16,6 +16,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -53,7 +54,7 @@ public class LoggingConfiguratorTest {
     public void configure_shouldInstallFileAppenderFromArguments() throws Exception {
 
         String[] arguments = loggingConfigurator.configure(new String[]{"-log", "target/" + LOG_FILENAME});
-
+        assertEquals(0, arguments.length);
         Appender appender = Logger.getRootLogger().getAppender("FileAppender");
         assertNotNull(appender);
         assertThat(appender, instanceOf(RollingFileAppender.class));

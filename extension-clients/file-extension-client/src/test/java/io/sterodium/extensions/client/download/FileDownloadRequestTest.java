@@ -13,7 +13,8 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.seleniumhq.jetty7.server.Server;
+import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
+import org.seleniumhq.jetty9.server.Server;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -55,11 +57,11 @@ public class FileDownloadRequestTest extends BaseRequestTest {
         stubServlet.setFunction(responseHandleFunction);
 
         fileToGet = File.createTempFile("test", ".txt");
-        FileUtils.write(fileToGet, EXPECTED_CONTENT);
+        FileUtils.write(fileToGet, EXPECTED_CONTENT, StandardCharsets.UTF_8);
 
         extensionPath = String.format(PATH, HubRequestsProxyingServlet.class.getSimpleName(), SESSION_ID, FileDownloadServlet.class.getSimpleName(), "*");
         server = startServerForServlet(stubServlet, extensionPath);
-        port = server.getConnectors()[0].getLocalPort();
+        port = ((AbstractNetworkConnector) server.getConnectors()[0]).getLocalPort();
     }
 
     @After
@@ -84,7 +86,7 @@ public class FileDownloadRequestTest extends BaseRequestTest {
         File downloadedFile = fileDownloadRequest.download(fileToGet.getAbsolutePath());
 
         try (FileInputStream fileInputStream = new FileInputStream(downloadedFile)) {
-            String s = IOUtils.toString(fileInputStream);
+            String s = IOUtils.toString(fileInputStream, StandardCharsets.UTF_8);
             assertThat(s, is(EXPECTED_CONTENT));
         }
         verify(responseHandleFunction, times(1)).apply(any(HttpServletRequest.class), any(HttpServletResponse.class));

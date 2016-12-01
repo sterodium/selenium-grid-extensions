@@ -15,12 +15,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.seleniumhq.jetty7.server.Server;
+import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
+import org.seleniumhq.jetty9.server.Server;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -39,7 +41,7 @@ public class FileDownloadServletTest extends BaseServletTest {
     @Before
     public void setUp() throws Exception {
         fileUploadServer = startServerForServlet(new FileDownloadServlet(), "/" + FileDownloadServlet.class.getSimpleName() + "/*");
-        serverHost = new HttpHost("localhost", fileUploadServer.getConnectors()[0].getLocalPort());
+        serverHost = new HttpHost("localhost", ((AbstractNetworkConnector) fileUploadServer.getConnectors()[0]).getLocalPort());
     }
 
     @After
@@ -50,7 +52,7 @@ public class FileDownloadServletTest extends BaseServletTest {
     @Test
     public void getShouldReturnFileContentsWithNameInHeader() throws IOException {
         File fileToGet = File.createTempFile("test", ".txt");
-        FileUtils.write(fileToGet, "expected_content");
+        FileUtils.write(fileToGet, "expected_content", StandardCharsets.UTF_8);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -62,7 +64,7 @@ public class FileDownloadServletTest extends BaseServletTest {
         //check contents are properly sent
         try (
                 InputStream content = execute.getEntity().getContent()) {
-            String s = IOUtils.toString(content);
+            String s = IOUtils.toString(content, StandardCharsets.UTF_8);
             assertThat(s, is("expected_content"));
         }
 
@@ -88,7 +90,7 @@ public class FileDownloadServletTest extends BaseServletTest {
         //check error message is set
         try (
                 InputStream content = execute.getEntity().getContent()) {
-            String s = IOUtils.toString(content);
+            String s = IOUtils.toString(content, StandardCharsets.UTF_8);
             assertThat(s, is("Requested file doesn't exist."));
         }
     }
@@ -109,7 +111,7 @@ public class FileDownloadServletTest extends BaseServletTest {
         //check error message is set
         try (
                 InputStream content = execute.getEntity().getContent()) {
-            String s = IOUtils.toString(content);
+            String s = IOUtils.toString(content, StandardCharsets.UTF_8);
             assertThat(s, is("Requested file is directory."));
         }
         //check file is not locked by anything

@@ -79,7 +79,7 @@ Binaries and dependency information for Maven, Gradle and other build tools can 
 ```
 Launch grid with 
 ```
-java -cp "selenium-server-standalone-2.48.2.jar:extension-proxy-x.y.z.jar" org.openqa.grid.selenium.GridLauncher -role hub -hubConfig hubConfig.json
+java -cp "selenium-server-standalone-3.0.1.jar:extension-proxy-x.y.z.jar" org.openqa.grid.selenium.GridLauncherV3 -role hub -hubConfig hubConfig.json
 ```
 
 **Selenium node**:
@@ -101,7 +101,7 @@ java -cp "selenium-server-standalone-2.48.2.jar:extension-proxy-x.y.z.jar" org.o
 ```
 Launch node with 
 ```
-java -cp "selenium-server-standalone-2.48.2.jar:all-node-extensions-x.y.z.jar" org.openqa.grid.selenium.GridLauncher -role node -nodeConfig nodeConfig.json
+java -cp "selenium-server-standalone-3.0.1.jar:all-node-extensions-x.y.z.jar" org.openqa.grid.selenium.GridLauncherV3 -role node -nodeConfig nodeConfig.json
 ```
 
 
