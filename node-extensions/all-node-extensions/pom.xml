@@ -20,6 +20,11 @@
             <artifactId>sikuli-extension</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.sterodium</groupId>
+            <artifactId>cleaner-extension</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
