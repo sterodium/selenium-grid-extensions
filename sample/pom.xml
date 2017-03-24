@@ -5,39 +5,95 @@
     <parent>
         <artifactId>selenium-grid-extensions</artifactId>
         <groupId>io.sterodium</groupId>
-        <version>0.6-SNAPSHOT</version>
+        <version>0.7-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sample</artifactId>
 
+    <properties>
+        <plugin.enforcer.version>1.4.1</plugin.enforcer.version>
+        <plugin.antrun.version>1.8</plugin.antrun.version>
+        <slf4j.version>1.7.12</slf4j.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- mvn -Dwebdriver.gecko.driver=path/to/geckodriver -P sample test -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${plugin.enforcer.version}</version>
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals><goal>enforce</goal></goals>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>webdriver.gecko.driver</property>
+                                    <message>[ERRROR] You must set webdriver.gecko.driver property!</message>
+                                </requireProperty>
+                                <requireFilesExist>
+                                    <files><file>${webdriver.gecko.driver}</file></files>
+                                    <message>[ERROR] Missing webdriver executable ${webdriver.gecko.driver}</message>
+                                </requireFilesExist>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${plugin.antrun.version}</version>
+                <executions>
+                    <execution>
+                        <phase>test-compile</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                            <target>
+                                <java classname="io.sterodium.sample.LocalSeleniumGridLauncher" classpathref="maven.runtime.classpath"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>2.47.1</version>
         </dependency>
         <dependency>
             <groupId>io.sterodium</groupId>
             <artifactId>extension-proxy</artifactId>
-            <version>0.6-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.sterodium</groupId>
             <artifactId>all-node-extensions</artifactId>
-            <version>0.6-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.sterodium</groupId>
             <artifactId>sikuli-extension-client</artifactId>
-            <version>0.6-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>2.23</version>
+            <version>4.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

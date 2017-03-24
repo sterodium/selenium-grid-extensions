@@ -1,7 +1,7 @@
 package io.sterodium.extensions.log;
 
-import io.sterodium.extensions.common.CommandLineOptionManager;
 import io.sterodium.extensions.spi.GridConfigurator;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -10,6 +10,7 @@ import org.apache.log4j.RollingFileAppender;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * Configures log output and log level from command line arguments if logging is not configured by
@@ -33,20 +34,18 @@ public class LoggingConfigurator implements GridConfigurator {
     private static final String MAX_FILE_SIZE = "10MB";
     private static final int MAX_BACKUPS = 1;
 
-    private CommandLineOptionManager commandLineOptionManager;
     private Level logLevel;
 
     @Override
     public String[] configure(String[] args) {
-        commandLineOptionManager = new CommandLineOptionManager(args);
 
         boolean isLog4jConfigured = Logger.getRootLogger().getAllAppenders().hasMoreElements();
         if (!isLog4jConfigured) {
-            logLevel = commandLineOptionManager.isParamPresent("-debug")
+            logLevel = Arrays.asList(args).contains("-debug")
                     ? Level.DEBUG
                     : getDefaultLogLevel();
 
-            String logFilename = getLogFilename();
+            String logFilename = getLogFilename(args);
             if (logFilename != null && !logFilename.isEmpty()) {
                 installFileAppender(logFilename);
             } else {
@@ -54,8 +53,7 @@ public class LoggingConfigurator implements GridConfigurator {
                 LOG.info("No logging configuration found, logging to console");
             }
         }
-        clearLogFilenameParam();
-        return commandLineOptionManager.getAllParams();
+        return clearLogFilenameParam(args);
     }
 
 
@@ -84,19 +82,26 @@ public class LoggingConfigurator implements GridConfigurator {
         Logger.getRootLogger().addAppender(file);
     }
 
-    private String getLogFilename() {
+    private static String getLogFilename(String[] args) {
         String logFilename;
-        if (commandLineOptionManager.isParamPresent(LOG_FILE_PARAM)) {
-            logFilename = commandLineOptionManager.getParamValue(LOG_FILE_PARAM);
+        int idx = Arrays.asList(args).indexOf(LOG_FILE_PARAM);
+        if (-1 != idx) {
+            logFilename = args[idx + 1];
         } else {
             logFilename = getLogFilenameFromSystemProperty();
         }
         return logFilename;
     }
 
-    private void clearLogFilenameParam() {
-        commandLineOptionManager.removeParam(LOG_FILE_PARAM);
+    private static String[] clearLogFilenameParam(String[] args) {
         System.clearProperty(LOG_FILE_PROPERTY);
+        int idx = Arrays.asList(args).indexOf(LOG_FILE_PARAM);
+        if (-1 != idx) {
+            if (args.length > idx + 1)
+                args = ArrayUtils.remove(args, idx + 1); // value
+            args = ArrayUtils.remove(args, idx); // name
+        }
+        return args;
     }
 
     private static String getLogFilenameFromSystemProperty() {

@@ -1,8 +1,8 @@
 package io.sterodium.extensions.client;
 
-import org.seleniumhq.jetty7.server.Server;
-import org.seleniumhq.jetty7.servlet.ServletContextHandler;
-import org.seleniumhq.jetty7.servlet.ServletHolder;
+import org.seleniumhq.jetty9.server.Server;
+import org.seleniumhq.jetty9.servlet.ServletContextHandler;
+import org.seleniumhq.jetty9.servlet.ServletHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

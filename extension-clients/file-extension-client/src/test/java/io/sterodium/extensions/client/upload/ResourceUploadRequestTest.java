@@ -14,7 +14,8 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.seleniumhq.jetty7.server.Server;
+import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
+import org.seleniumhq.jetty9.server.Server;
 import org.zeroturnaround.zip.ZipUtil;
 
 import javax.servlet.ServletInputStream;
@@ -63,7 +64,7 @@ public class ResourceUploadRequestTest extends BaseRequestTest {
 
         extensionPath = String.format(PATH, HubRequestsProxyingServlet.class.getSimpleName(), SESSION_ID, FileUploadServlet.class.getSimpleName(), "*");
         server = startServerForServlet(stubServlet, extensionPath);
-        port = server.getConnectors()[0].getLocalPort();
+        port = ((AbstractNetworkConnector) server.getConnectors()[0]).getLocalPort();
     }
 
     @After

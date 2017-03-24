@@ -24,9 +24,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.openqa.grid.internal.Registry;
 import org.openqa.grid.internal.TestSession;
-import org.seleniumhq.jetty7.server.Server;
-import org.seleniumhq.jetty7.servlet.ServletContextHandler;
-import org.seleniumhq.jetty7.servlet.ServletHolder;
+import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
+import org.seleniumhq.jetty9.server.Server;
+import org.seleniumhq.jetty9.servlet.ServletContextHandler;
+import org.seleniumhq.jetty9.servlet.ServletHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +37,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -70,11 +72,11 @@ public class HubRequestsProxyingServletTest {
         HubRequestsProxyingServlet hubRequestsProxyingServlet = new HubRequestsProxyingServlet(mockedRegistry);
 
         hubServer = startServerForServlet(hubRequestsProxyingServlet, "/" + HubRequestsProxyingServlet.class.getSimpleName() + "/*");
-        hubPort = hubServer.getConnectors()[0].getLocalPort();
+        hubPort = ((AbstractNetworkConnector) hubServer.getConnectors()[0]).getLocalPort();
 
         stubServer = startServerForServlet(stubServlet, "/extra/stubbyExtension/*");
 
-        URL url = new URIBuilder("http://localhost:" + stubServer.getConnectors()[0].getLocalPort())
+        URL url = new URIBuilder("http://localhost:" + ((AbstractNetworkConnector) stubServer.getConnectors()[0]).getLocalPort())
                 .build()
                 .toURL();
 
@@ -195,7 +197,7 @@ public class HubRequestsProxyingServletTest {
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
                 HttpServletRequest req = (HttpServletRequest) invocationOnMock.getArguments()[0];
                 assertThat(req.getContentType(), equalTo(contentType));
-                String reqContent = IOUtils.toString(req.getInputStream());
+                String reqContent = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
                 assertThat(reqContent, is("expected_content"));
                 return null;
             }
@@ -221,7 +223,7 @@ public class HubRequestsProxyingServletTest {
         assertThat(httpResponse.getStatusLine().getStatusCode(), is(HttpServletResponse.SC_CREATED));
         assertThat(httpEntity.getContentType().getValue(), is(MediaType.OCTET_STREAM.toString()));
 
-        String returnedContent = IOUtils.toString(httpEntity.getContent());
+        String returnedContent = IOUtils.toString(httpEntity.getContent(), StandardCharsets.UTF_8);
         assertThat(returnedContent, is("expected_content"));
     }
 

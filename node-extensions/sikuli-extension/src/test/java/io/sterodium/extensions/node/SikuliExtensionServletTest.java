@@ -13,9 +13,10 @@ import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.seleniumhq.jetty7.server.Server;
-import org.seleniumhq.jetty7.servlet.ServletContextHandler;
-import org.seleniumhq.jetty7.servlet.ServletHolder;
+import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
+import org.seleniumhq.jetty9.server.Server;
+import org.seleniumhq.jetty9.servlet.ServletContextHandler;
+import org.seleniumhq.jetty9.servlet.ServletHolder;
 
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class SikuliExtensionServletTest {
         basePath = "/" + SikuliExtensionServlet.class.getSimpleName() + "/";
         sikuliServer = startServerForServlet(new SikuliExtensionServlet(), basePath + "*");
 
-        serverHost = new HttpHost("localhost", sikuliServer.getConnectors()[0].getLocalPort());
+        serverHost = new HttpHost("localhost", ((AbstractNetworkConnector) sikuliServer.getConnectors()[0]).getLocalPort());
     }
 
     @After

@@ -14,12 +14,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.seleniumhq.jetty7.server.Server;
+import org.seleniumhq.jetty9.server.AbstractNetworkConnector;
+import org.seleniumhq.jetty9.server.Server;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -40,7 +42,7 @@ public class FileUploadServletTest extends BaseServletTest {
     @Before
     public void setUp() throws Exception {
         fileUploadServer = startServerForServlet(new FileUploadServlet(), "/" + FileUploadServlet.class.getSimpleName() + "/*");
-        port = fileUploadServer.getConnectors()[0].getLocalPort();
+        port = ((AbstractNetworkConnector) fileUploadServer.getConnectors()[0]).getLocalPort();
 
         zipArchive = createZipArchiveWithTextFile();
     }
@@ -63,7 +65,7 @@ public class FileUploadServletTest extends BaseServletTest {
 
         try (
                 InputStream content = execute.getEntity().getContent()) {
-            String directory = IOUtils.toString(content);
+            String directory = IOUtils.toString(content, StandardCharsets.UTF_8);
             unzippedArchive = new File(directory);
             unzippedFile = new File(directory + "/" + ZIP_FILE_NAME);
         }
@@ -71,7 +73,7 @@ public class FileUploadServletTest extends BaseServletTest {
         assertThat(unzippedFile.exists(), is(true));
 
         try (FileInputStream unzippedFileStream = new FileInputStream(unzippedFile)) {
-            String contents = IOUtils.toString(unzippedFileStream);
+            String contents = IOUtils.toString(unzippedFileStream, StandardCharsets.UTF_8);
             assertThat(contents, is("test data"));
         }
     }
