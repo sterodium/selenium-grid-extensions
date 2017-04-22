@@ -49,6 +49,12 @@
             <email>alexey@tcherezov.com</email>
             <organization>Sterodium</organization>
         </developer>
+        <developer>
+            <id>nikarh</id>
+            <name>Nikolay Arhipov</name>
+            <email>nikolajs.arhipovs@gmail.com</email>
+            <organization>Sterodium</organization>
+        </developer>
     </developers>
 
     <mailingLists>
@@ -220,6 +226,11 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>4.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kohsuke</groupId>
+                <artifactId>akuma</artifactId>
+                <version>1.10</version>
             </dependency>
 
             <dependency>
