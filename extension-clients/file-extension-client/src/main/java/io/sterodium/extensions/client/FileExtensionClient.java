@@ -1,5 +1,6 @@
 package io.sterodium.extensions.client;
 
+import io.sterodium.extensions.client.delete.FileDeleteRequest;
 import io.sterodium.extensions.client.download.FileDownloadRequest;
 import io.sterodium.extensions.client.upload.ResourceUploadRequest;
 
@@ -14,6 +15,7 @@ public class FileExtensionClient {
 
     private FileDownloadRequest fileDownloadRequest;
     private ResourceUploadRequest resourceUploadRequest;
+    private FileDeleteRequest fileDeleteRequest;
 
     /**
      * @param hubHost   selenium hub host
@@ -23,6 +25,8 @@ public class FileExtensionClient {
     public FileExtensionClient(String hubHost, int hubPort, String sessionId) {
         fileDownloadRequest = new FileDownloadRequest(hubHost, hubPort, sessionId);
         resourceUploadRequest = new ResourceUploadRequest(hubHost, hubPort, sessionId);
+        fileDeleteRequest = new FileDeleteRequest(hubHost, hubPort, sessionId);
+
     }
 
     /**
@@ -44,4 +48,17 @@ public class FileExtensionClient {
     public String upload(String resourcesPath) {
         return resourceUploadRequest.upload(resourcesPath);
     }
+
+
+    /**
+     *
+     * Delete file from Selenium Node
+     *
+     * @param pathToDelete absolute path of file which is to be deleted
+     * @return boolean value true if file gets deleted & false if not
+     */
+    public boolean delete(String pathToDelete) {
+        return fileDeleteRequest.delete(pathToDelete);
+    }
+
 }
