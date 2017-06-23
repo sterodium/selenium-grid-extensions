@@ -47,11 +47,7 @@ public class FileDeleteRequest {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             CloseableHttpResponse execute = httpClient.execute(httpHost, request);
             int statusCode = execute.getStatusLine().getStatusCode();
-            if (HttpStatus.SC_OK == statusCode) {
-                return true;
-            } else {
-                return false;
-            }
+            return HttpStatus.SC_OK == statusCode;
         } catch (IOException e) {
             return false;
         }
