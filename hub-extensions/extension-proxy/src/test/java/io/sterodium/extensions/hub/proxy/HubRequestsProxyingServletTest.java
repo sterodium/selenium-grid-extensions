@@ -119,6 +119,7 @@ public class HubRequestsProxyingServletTest {
         HttpPost httpPost = new HttpPost(String.format("http://localhost:%d/%s/session/%s/%s/proper/get/path/params", hubPort,
                 HubRequestsProxyingServlet.class.getSimpleName(), "session_id",
                 "stubbyExtension"));
+        setEntityWithExpectedContent(httpPost);
         httpClient.execute(httpPost);
 
         verify(mockedFunction, times(1)).apply(any(HttpServletRequest.class), any(HttpServletResponse.class));
@@ -215,6 +216,7 @@ public class HubRequestsProxyingServletTest {
         HttpPost httpPost = new HttpPost(String.format("http://localhost:%d/%s/session/%s/%s/proper/get/path/params", hubPort,
                 HubRequestsProxyingServlet.class.getSimpleName(), "session_id",
                 "stubbyExtension"));
+        setEntityWithExpectedContent(httpPost);
         CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
 
         verify(mockedFunction, times(1)).apply(any(HttpServletRequest.class), any(HttpServletResponse.class));

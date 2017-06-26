@@ -153,6 +153,13 @@ FileExtensionClient fileExtensionClient = new FileExtensionClient(host, port, se
 File fileFromNode = fileExtensionClient.download(pathToFile);
 ```
 
+File deletion from selenium node: (which can be used as cleanup after upload/download activity performed on node)
+
+```java
+FileExtensionClient fileExtensionClient = new FileExtensionClient(host, port, sessionId);
+boolean isFiledeleted = fileExtensionClient.delete(pathToFile);
+```
+
 ## Build
 
 ```
