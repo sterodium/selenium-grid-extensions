@@ -17,7 +17,7 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.internal.TestSession;
 
 import javax.servlet.*;
@@ -46,7 +46,7 @@ public class HubRequestsProxyingServletPathsTest {
     @Mock
     HttpServletResponse resp;
     @Mock
-    Registry registry;
+    GridRegistry registry;
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     TestSession activeSession1;

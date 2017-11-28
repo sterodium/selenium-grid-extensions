@@ -6,15 +6,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.openqa.grid.internal.DefaultTimeSource;
 import org.openqa.grid.internal.ExternalSessionKey;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.internal.TestSession;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+
+import java.time.Clock;
+import java.time.Instant;
 
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
@@ -24,7 +26,7 @@ import static org.mockito.Mockito.when;
 public class SeleniumSessionsTest {
 
     @Mock
-    Registry registry;
+    GridRegistry registry;
     @Mock
     ExternalSessionKey externalSessionKey;
 
@@ -35,7 +37,7 @@ public class SeleniumSessionsTest {
     @Before
     public void setUp() {
         seleniumSessions = new SeleniumSessions(registry);
-        activeSession = spy(new TestSession(null, null, new DefaultTimeSource()));
+        activeSession = spy(new TestSession(null, null, Clock.systemDefaultZone()));
 
         when(activeSession.getExternalKey()).thenReturn(externalSessionKey);
         when(externalSessionKey.getKey()).thenReturn("sessionId");

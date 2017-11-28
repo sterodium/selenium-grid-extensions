@@ -214,12 +214,12 @@
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-server</artifactId>
-                <version>3.3.1</version>
+                <version>3.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>4.5</version>
+                <version>4.5.3</version>
             </dependency>
 
             <dependency>
@@ -237,7 +237,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>18.0</version>
+                <version>23.0</version>
             </dependency>
 
             <!--Sikuli & Open CV-->

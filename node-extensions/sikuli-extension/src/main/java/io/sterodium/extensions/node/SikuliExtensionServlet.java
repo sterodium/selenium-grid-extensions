@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import io.sterodium.extensions.node.rmi.SikuliApplication;
 import io.sterodium.rmi.protocol.MethodInvocationDto;
 import io.sterodium.rmi.protocol.MethodInvocationResultDto;
-import org.openqa.grid.internal.Registry;
+import org.openqa.grid.internal.GridRegistry;
 import org.openqa.grid.web.servlet.RegistryBasedServlet;
 
 import javax.servlet.ServletException;
@@ -28,7 +28,7 @@ public class SikuliExtensionServlet extends RegistryBasedServlet {
         this(null);
     }
 
-    public SikuliExtensionServlet(Registry registry) {
+    public SikuliExtensionServlet(GridRegistry registry) {
         super(registry);
     }
 

@@ -4,9 +4,8 @@ import com.google.common.annotations.VisibleForTesting;
 import io.sterodium.extensions.hub.proxy.client.RequestForwardingClient;
 import io.sterodium.extensions.hub.proxy.client.RequestForwardingClientProvider;
 import io.sterodium.extensions.hub.proxy.session.SeleniumSessions;
-import org.openqa.grid.internal.Registry;
 import org.openqa.grid.web.servlet.RegistryBasedServlet;
-
+import org.openqa.grid.internal.GridRegistry;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +30,7 @@ public class HubRequestsProxyingServlet extends RegistryBasedServlet {
         this(null);
     }
 
-    public HubRequestsProxyingServlet(Registry registry) {
+    public HubRequestsProxyingServlet(GridRegistry registry) {
         super(registry);
         requestForwardingClientProvider = new RequestForwardingClientProvider();
     }
