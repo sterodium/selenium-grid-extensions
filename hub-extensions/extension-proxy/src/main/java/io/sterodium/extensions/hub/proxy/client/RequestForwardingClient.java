@@ -1,6 +1,7 @@
 package io.sterodium.extensions.hub.proxy.client;
 
 import io.sterodium.extensions.hub.proxy.session.SeleniumSessions;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -72,7 +73,9 @@ public class RequestForwardingClient {
         HttpPost httpPost = new HttpPost();
         InputStreamEntity entity = new InputStreamEntity(request.getInputStream(),
                 request.getContentLength(),
-                ContentType.create(request.getContentType()));
+                // some requests contain ContentType;Encoding and fails in validation.
+                // So striping Encoding and retaining only ContentType
+                ContentType.create((request.getContentType().split(";")[0])));
         httpPost.setEntity(entity);
 
         return httpPost;
