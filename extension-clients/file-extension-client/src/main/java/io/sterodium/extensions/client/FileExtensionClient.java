@@ -55,7 +55,7 @@ public class FileExtensionClient {
      * Delete file from Selenium Node
      *
      * @param pathToDelete absolute path of file which is to be deleted
-     * @return boolean value true if file gets deleted & false if not
+     * @return boolean value true if file gets deleted and false if not
      */
     public boolean delete(String pathToDelete) {
         return fileDeleteRequest.delete(pathToDelete);
