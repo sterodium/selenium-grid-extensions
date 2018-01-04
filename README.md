@@ -36,16 +36,20 @@ Downloading files in Selenium tests? Get them to your machine and check contents
 
 You might have some file upload tests. Uploading files to remote environment is not a problem anymore.
 
-**_More to come..._**
-
 ## Getting started
 
 Extensions need to be installed on Selenium Grid.
 It is obligatory to have Extension proxy installed in the hub.
 
+
+
 ### Binaries
 
 Binaries and dependency information for Maven, Gradle and other build tools can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cio.sterodium).
+
+### Docker
+
+Look into project https://github.com/bravostudiodev/bravo-grid for docker images.
 
 #### On client side for Maven:
 
