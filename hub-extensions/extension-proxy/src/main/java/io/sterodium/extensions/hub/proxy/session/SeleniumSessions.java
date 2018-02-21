@@ -32,8 +32,10 @@ public class SeleniumSessions {
 
     public void refreshTimeout(String sessionId) {
         for (TestSession activeSession : registry.getActiveSessions()) {
-            if (sessionId.equals(activeSession.getExternalKey().getKey())) {
-                refreshTimeout(activeSession);
+            if ((activeSession != null) && (sessionId != null) && (activeSession.getExternalKey() != null)) {
+                if (sessionId.equals(activeSession.getExternalKey().getKey())) {
+                    refreshTimeout(activeSession);
+                }
             }
         }
     }

@@ -35,6 +35,37 @@ public class FileDownloadRequest {
         this.sessionId = sessionId;
     }
 
+    public File download(String pathToFile, String extension) {
+        String encodedPath;
+        try {
+            encodedPath = URLEncoder.encode(pathToFile, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("Failed to encode path", e);
+            return null;
+        }
+
+        HttpGet request = new HttpGet(String.format(FILE_DOWNLOAD_EXTENSION_PATH, sessionId, encodedPath));
+        try {
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse execute = httpClient.execute(httpHost, request);
+            int statusCode = execute.getStatusLine().getStatusCode();
+            if (HttpStatus.SC_OK == statusCode) {
+                File downloadResult = File.createTempFile("download_result", extension);
+                try (
+                        FileOutputStream outputStream = new FileOutputStream(downloadResult);
+                        InputStream responseStream = execute.getEntity().getContent()) {
+                    IOUtils.copy(responseStream, outputStream);
+                }
+                return downloadResult;
+            } else {
+                String message = IOUtils.toString(execute.getEntity().getContent(), "UTF-8");
+                throw new FileDownloadException(message, statusCode);
+            }
+        } catch (IOException e) {
+            throw new FileDownloadException(e);
+        }
+    }
+
     public File download(String pathToFile) {
         String encodedPath;
         try {
@@ -65,4 +96,5 @@ public class FileDownloadRequest {
             throw new FileDownloadException(e);
         }
     }
+
 }

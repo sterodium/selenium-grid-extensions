@@ -40,6 +40,16 @@ public class FileExtensionClient {
     }
 
     /**
+     * Download file from Selenium Node.
+     *
+     * @param pathToFile absolute path to file
+     * @return downloaded file with extension in temp directory
+     */
+    public File download(String pathToFile, String extension) {
+        return fileDownloadRequest.download(pathToFile, extension);
+    }
+
+    /**
      * Upload resource folder from classpath.
      *
      * @param resourcesPath path to resource folder in classpath
