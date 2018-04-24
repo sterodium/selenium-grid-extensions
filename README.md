@@ -74,9 +74,7 @@ Look into project https://github.com/bravostudiodev/bravo-grid for docker images
 - Modify hubConfig.json (servlets and capability matcher property) 
 ```json
 ...
- "servlets": [
-    "io.sterodium.extensions.hub.proxy.HubRequestsProxyingServlet"
-  ],
+   "servlet": "io.sterodium.extensions.hub.proxy.HubRequestsProxyingServlet",
 ...
   "capabilityMatcher": "io.sterodium.extensions.capability.CustomCapabilityMatcher"
 ...
