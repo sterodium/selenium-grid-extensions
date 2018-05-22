@@ -2,6 +2,7 @@ package io.sterodium.extensions.node.delete;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,8 @@ public class FileDeleteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
+        String pathInfo = req.getRequestURI().substring(req.getServletPath().length() + 1);
+        pathInfo = new String(Base64.getUrlDecoder().decode(pathInfo.getBytes()));
         LOGGER.info("Request for file delete received with path: " + pathInfo);
 
         File file = new File(pathInfo);

@@ -1,8 +1,8 @@
 package io.sterodium.extensions.client.delete;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
@@ -35,12 +35,7 @@ public class FileDeleteRequest {
 
     public boolean delete(String pathToFile) {
         String encodedPath;
-        try {
-            encodedPath = URLEncoder.encode(pathToFile, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Failed to encode path", e);
-            return false;
-        }
+        encodedPath = Base64.getUrlEncoder().encodeToString(pathToFile.getBytes(StandardCharsets.UTF_8));
 
         HttpGet request = new HttpGet(String.format(FILE_DELETE_EXTENSION_PATH, sessionId, encodedPath));
         try {

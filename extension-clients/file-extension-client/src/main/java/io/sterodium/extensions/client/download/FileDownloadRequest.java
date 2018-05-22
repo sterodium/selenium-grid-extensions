@@ -14,8 +14,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * @author Alexey Nikolaenko alexey@tcherezov.com
@@ -37,12 +37,7 @@ public class FileDownloadRequest {
 
     public File download(String pathToFile, String extension) {
         String encodedPath;
-        try {
-            encodedPath = URLEncoder.encode(pathToFile, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Failed to encode path", e);
-            return null;
-        }
+        encodedPath = Base64.getUrlEncoder().encodeToString(pathToFile.getBytes(StandardCharsets.UTF_8));
 
         HttpGet request = new HttpGet(String.format(FILE_DOWNLOAD_EXTENSION_PATH, sessionId, encodedPath));
         try {
@@ -68,12 +63,7 @@ public class FileDownloadRequest {
 
     public File download(String pathToFile) {
         String encodedPath;
-        try {
-            encodedPath = URLEncoder.encode(pathToFile, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Failed to encode path", e);
-            return null;
-        }
+        encodedPath = Base64.getUrlEncoder().encodeToString(pathToFile.getBytes(StandardCharsets.UTF_8));
 
         HttpGet request = new HttpGet(String.format(FILE_DOWNLOAD_EXTENSION_PATH, sessionId, encodedPath));
         try {

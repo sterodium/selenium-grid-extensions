@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -48,7 +49,7 @@ public class FileDeleteServletTest extends BaseServletTest {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        String encode = URLEncoder.encode(fileTobeDeleted.getAbsolutePath(), "UTF-8");
+        String encode = Base64.getUrlEncoder().encodeToString(fileTobeDeleted.getAbsolutePath().getBytes(StandardCharsets.UTF_8));
         HttpGet httpGet = new HttpGet("/FileDeleteServlet/" + encode);
 
         CloseableHttpResponse execute = httpClient.execute(serverHost, httpGet);

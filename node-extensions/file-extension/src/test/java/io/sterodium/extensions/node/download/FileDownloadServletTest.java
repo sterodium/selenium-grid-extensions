@@ -21,8 +21,8 @@ import org.seleniumhq.jetty9.server.Server;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -51,12 +51,12 @@ public class FileDownloadServletTest extends BaseServletTest {
 
     @Test
     public void getShouldReturnFileContentsWithNameInHeader() throws IOException {
-        File fileToGet = File.createTempFile("test", ".txt");
+        File fileToGet = File.createTempFile("test filename with spaces", ".txt");
         FileUtils.write(fileToGet, "expected_content", StandardCharsets.UTF_8);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        String encode = URLEncoder.encode(fileToGet.getAbsolutePath(), "UTF-8");
+        String encode = Base64.getUrlEncoder().encodeToString(fileToGet.getAbsolutePath().getBytes(StandardCharsets.UTF_8));
         HttpGet httpGet = new HttpGet("/FileDownloadServlet/" + encode);
 
         CloseableHttpResponse execute = httpClient.execute(serverHost, httpGet);
@@ -79,7 +79,7 @@ public class FileDownloadServletTest extends BaseServletTest {
     public void getShouldReturnBadRequestWhenFileNotExists() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        String encode = URLEncoder.encode("/some/location/", "UTF-8");
+        String encode = Base64.getUrlEncoder().encodeToString("/some/location/".getBytes(StandardCharsets.UTF_8));
         HttpGet httpGet = new HttpGet("/FileDownloadServlet/" + encode);
 
         CloseableHttpResponse execute = httpClient.execute(serverHost, httpGet);
@@ -100,7 +100,7 @@ public class FileDownloadServletTest extends BaseServletTest {
         File directory = Files.createTempDir();
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        String encode = URLEncoder.encode(directory.getAbsolutePath(), "UTF-8");
+        String encode = Base64.getUrlEncoder().encodeToString(directory.getAbsolutePath().getBytes(StandardCharsets.UTF_8));
         HttpGet httpGet = new HttpGet("/FileDownloadServlet/" + encode);
 
         CloseableHttpResponse execute = httpClient.execute(serverHost, httpGet);
