@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +28,8 @@ public class FileDownloadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
+        String pathInfo = req.getRequestURI().substring(req.getServletPath().length() + 1);
+        pathInfo = new String(Base64.getUrlDecoder().decode(pathInfo.getBytes()));
         LOGGER.info("Request for file download received with path: " + pathInfo);
 
         File file = new File(pathInfo);

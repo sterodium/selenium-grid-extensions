@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -56,7 +57,7 @@ public class FileDownloadRequestTest extends BaseRequestTest {
         StubServlet stubServlet = new StubServlet();
         stubServlet.setFunction(responseHandleFunction);
 
-        fileToGet = File.createTempFile("test", ".txt");
+        fileToGet = File.createTempFile("test filename with spaces", ".txt");
         FileUtils.write(fileToGet, EXPECTED_CONTENT, StandardCharsets.UTF_8);
 
         extensionPath = String.format(PATH, HubRequestsProxyingServlet.class.getSimpleName(), SESSION_ID, FileDownloadServlet.class.getSimpleName(), "*");
@@ -99,7 +100,9 @@ public class FileDownloadRequestTest extends BaseRequestTest {
                 HttpServletRequest req = (HttpServletRequest) invocationOnMock.getArguments()[0];
                 HttpServletResponse resp = (HttpServletResponse) invocationOnMock.getArguments()[1];
 
-                String pathInfo = req.getPathInfo();
+                String pathInfo = req.getRequestURI().substring(req.getServletPath().length() + 1);
+                pathInfo = new String(Base64.getUrlDecoder().decode(pathInfo.getBytes()));
+
                 assertThat(pathInfo, containsString(fileToGet.getAbsolutePath()));
 
                 try (
